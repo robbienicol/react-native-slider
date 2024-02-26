@@ -60,5 +60,5 @@
         "prismjs": "1.24.0",
         "set-value": "2.0.1"
     },
-    "packageManager": "yarn@3.4.1"
+    "packageManager": "yarn@1.22.21"
 }

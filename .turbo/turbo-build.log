@@ -1,0 +1,22 @@
+
+[2K[1G[2m$ patch-package && tsc[22m
+[1mpatch-package[22m 6.4.7
+Applying patches...
+[1m@types/react-native[22m@0.65.2 [32m✔[39m
+[96msrc/index.tsx[0m:[93m215[0m:[93m24[0m - [91merror[0m[90m TS7006: [0mParameter 'prevProps' implicitly has an 'any' type.
+
+[7m215[0m     componentDidUpdate(prevProps) {
+[7m   [0m [91m                       ~~~~~~~~~[0m
+
+[96msrc/index.tsx[0m:[93m218[0m:[93m58[0m - [91merror[0m[90m TS2345: [0mArgument of type 'number | number[] | Value | undefined' is not assignable to parameter of type 'number | number[] | undefined'.
+  Type 'Value' is not assignable to type 'number | number[] | undefined'.
+    Type 'Value' is missing the following properties from type 'number[]': length, pop, push, concat, and 29 more.
+
+[7m218[0m             const newValues = normalizeValue(this.props, this.props.value);
+[7m   [0m [91m                                                         ~~~~~~~~~~~~~~~~[0m
+
+
+Found 2 errors.
+
+[2K[1G[31merror[39m Command failed with exit code 2.
+[2K[1G[34minfo[39m Visit [1mhttps://yarnpkg.com/en/docs/cli/run[22m for documentation about this command.

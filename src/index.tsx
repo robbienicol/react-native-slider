@@ -71,10 +71,7 @@ const DEFAULT_ANIMATION_CONFIGS = {
     },
 };
 
-const normalizeValue = (
-    props: SliderProps,
-    value?: number | Array<number>,
-): Array<number> => {
+const normalizeValue = (props: SliderProps, value?: any): Array<number> => {
     if (!value || (Array.isArray(value) && value.length === 0)) {
         return [0];
     }
@@ -212,27 +209,34 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: any) {
         // Check if the value prop has changed
         if (this.props.value !== prevProps.value) {
             const newValues = normalizeValue(this.props, this.props.value);
 
-            this.setState({
-                values: updateValues({
-                    values: this.state.values,
-                    newValues: newValues,
-                }),
-            }, () => {
-                newValues.forEach((value, i) => {
-                    const currentValue = this.state.values[i].__getValue();
-                    if (value !== currentValue && this.props.animateTransitions) {
-                        this._setCurrentValueAnimated(value, i);
-                    } else {
-                        this._setCurrentValue(value, i);
-                    }
-                });
-            });
-        }}
+            this.setState(
+                {
+                    values: updateValues({
+                        values: this.state.values,
+                        newValues: newValues,
+                    }),
+                },
+                () => {
+                    newValues.forEach((value, i) => {
+                        const currentValue = this.state.values[i].__getValue();
+                        if (
+                            value !== currentValue &&
+                            this.props.animateTransitions
+                        ) {
+                            this._setCurrentValueAnimated(value, i);
+                        } else {
+                            this._setCurrentValue(value, i);
+                        }
+                    });
+                },
+            );
+        }
+    }
 
     _getRawValues(
         values: Array<Animated.Value> | Array<Animated.AnimatedInterpolation>,
@@ -723,7 +727,10 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             width:
                 interpolatedTrackValues.length === 1
                     ? Animated.add(minTrackWidth, thumbSize.width / 2)
-                    : Animated.add(Animated.multiply(minTrackWidth, -1), maxTrackWidth),
+                    : Animated.add(
+                          Animated.multiply(minTrackWidth, -1),
+                          maxTrackWidth,
+                      ),
             backgroundColor: minimumTrackTintColor,
             ...valueVisibleStyle,
             ...clearBorderRadius,
